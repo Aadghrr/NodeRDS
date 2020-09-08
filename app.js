@@ -72,6 +72,16 @@ app.get('/', function(req,res){
     res.sendFile('index.html', {root: __dirname });
 });
 
+app.get('/users', (req, res) => {
+  con = openConn()
+    con.connect(function(err) {
+        con.query(`SELECT * FROM main.users`, function(err, result, fields) {
+            if (err) res.send(err);
+            if (result) res.send(result);
+        });
+    });
+});
+
 async function queryDBIndex(indexval){
     try {
         var item = {
